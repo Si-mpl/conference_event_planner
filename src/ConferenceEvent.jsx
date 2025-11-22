@@ -53,11 +53,15 @@ const ConferenceEvent = () => {
     };
     const calculateTotalCost = (section) => {
         let totalCost = 0;
-        if (section === "venue" || section === "av") {
+        if (section === "venue") {
             venueItems.forEach((item) => {
                 totalCost += item.cost * item.quantity;
             });
-        } 
+        } else if (section === "av") {
+            avItems.forEach((item) => {
+              totalCost += item.cost * item.quantity;
+            });
+          }
         return totalCost;
       };
     const venueTotalCost = calculateTotalCost("venue");
@@ -170,15 +174,15 @@ const ConferenceEvent = () => {
                                             <div className="text"> {item.name} </div>
                                             <div> ${item.cost} </div>
                                                 <div className="addons_btn">
-                                                    <button className="button-warning" onClick={(() => handleAddToCart(index))}>&ndash; </button> 
+                                                    <button className="btn-warning" onClick={(() => handleDecrementAvQuantity(index))}>&ndash; </button> 
                                                     <span className="quantity-value">{item.quantity}</span>
-                                                    <button className=" btn-success" onClick={() => handleIncrementAvQuantity(index)}> &#43; </button>
+                                                    <button className="btn-success" onClick={() => handleIncrementAvQuantity(index)}> &#43; </button>
                                                 </div>
                                         </div>
                                     ))}
 
                                 </div>
-                                <div className="total_cost">Total Cost: {avTotalCost}</div>
+                                <div className="total_cost">Total Cost: ${avTotalCost}</div>
 
                             </div>
 
